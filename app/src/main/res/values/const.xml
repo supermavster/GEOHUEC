@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="api">http://192.168.0.133/huecos/agentes.php</string>
+    <string name="table_name">usuario</string>
+    <string name="table_column_id">placa</string>
+    <string name="table_column_1">cc</string>
+    <string name="database_name">BD1</string>
+</resources>

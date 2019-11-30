@@ -9,5 +9,39 @@
         android:id="@+id/login"
         android:name="com.cali.geohole.view.Login"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_geolocatino"
+            app:destination="@id/geolocatino" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/geolocatino"
+        android:name="com.cali.geohole.view.Geolocation"
+        android:label="fragment_geolocation"
+        tools:layout="@layout/fragment_geolocation" >
+        <action
+            android:id="@+id/action_geolocatino_to_photo"
+            app:destination="@id/photo" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/photo"
+        android:name="com.cali.geohole.view.Photo"
+        android:label="fragment_photo"
+        tools:layout="@layout/fragment_photo" >
+        <action
+            android:id="@+id/action_photo_to_finish"
+            app:destination="@id/finish" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/finish"
+        android:name="com.cali.geohole.view.Finish"
+        android:label="fragment_finish"
+        tools:layout="@layout/fragment_finish" >
+        <action
+            android:id="@+id/action_finish_to_geolocatino"
+            app:destination="@id/geolocatino" />
+    </fragment>
 </navigation>

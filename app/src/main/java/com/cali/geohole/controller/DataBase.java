@@ -19,12 +19,13 @@ public class DataBase extends SQLiteOpenHelper {
 
     Context context;
     SQLiteDatabase sqLiteDatabase;
+    SQLite SQLite;
+
 
     public DataBase(Context context){
         super(context, DATABASE_NAME, null, 1);
         this.context = context;
         initVariables();
-        // super(context, DatabaseName, null, 1);
         init();
     }
 
@@ -32,7 +33,8 @@ public class DataBase extends SQLiteOpenHelper {
         SQLiteDataBaseBuild();
         SQLiteTableBuild();
         DeletePreviousData();
-        new SQLite(this.context, sqLiteDatabase).execute();
+        this.SQLite = new SQLite(this.context, sqLiteDatabase);
+        this.SQLite.execute();
     }
 
     public void initVariables() {

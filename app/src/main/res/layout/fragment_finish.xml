@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Finish">
+
+    <LinearLayout
+        android:id="@+id/EsLogo"
+        android:layout_width="match_parent"
+        android:layout_height="541dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageViewLogEn"
+            android:layout_width="273dp"
+            android:layout_height="330dp"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:contentDescription="@string/logo"
+            app:srcCompat="@mipmap/logocali" />
+
+        <LinearLayout
+            android:id="@+id/EspBott"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/buttonNuevR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center|center_horizontal"
+                android:onClick="nuevo"
+                android:text="@string/nuevo_registro" />
+
+            <Button
+                android:id="@+id/buttonSalir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="finalizar"
+                android:text="@string/salir" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="api">//190.8.176.3/huecos/agentes.php</string>
+    <string name="api">https://sttmserver.com/huecos/agentes.php</string>
     <string name="table_name">usuario</string>
     <string name="table_column_id">placa</string>
+    <string name="table_column_cc">cc</string>
     <string name="table_column_1">cc</string>
     <string name="database_name">BD1</string>
 </resources>

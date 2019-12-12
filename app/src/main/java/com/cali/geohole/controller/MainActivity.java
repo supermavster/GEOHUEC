@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         // Init DB
         this.dataBase = new DataBase(this);
         // Init Process (All Actions in the tab MAIN)
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

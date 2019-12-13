@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.Finish">
 
-    <LinearLayout
-        android:id="@+id/EsLogo"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="541dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/buttonNuevR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:gravity="center|center_horizontal"
+            android:text="@string/nuevo_registro"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewLogEn"
+            tools:layout_editor_absoluteX="129dp" />
+
+        <Button
+            android:id="@+id/buttonSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/salir"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonNuevR" />
 
         <ImageView
             android:id="@+id/imageViewLogEn"
             android:layout_width="273dp"
             android:layout_height="330dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginTop="40dp"
             android:contentDescription="@string/logo"
-            android:src="@mipmap/ic_launcher" />
-
-        <LinearLayout
-            android:id="@+id/EspBott"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-          >
-
-            <Button
-                android:id="@+id/buttonNuevR"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center|center_horizontal"
-                android:text="@string/nuevo_registro" />
-
-            <Button
-                android:id="@+id/buttonSalir"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/salir" />
-        </LinearLayout>
-    </LinearLayout>
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

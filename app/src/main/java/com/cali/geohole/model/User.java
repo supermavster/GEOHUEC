@@ -6,6 +6,9 @@ public class User implements Serializable {
     public String placa;
     public String cedula;
 
+    // public ArrayList<Holes> holes = null;
+
+
     public User(String placa, String cedula) {
         this.placa = placa;
         this.cedula = cedula;

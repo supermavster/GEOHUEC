@@ -11,7 +11,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     // Varaibles & Const
 
-    static String DATABASE_NAME = "BD1";
+    static String DATABASE_NAME = "usuario";
 
 
     Context context;
@@ -87,9 +87,9 @@ public class DataBase extends SQLiteOpenHelper {
     public boolean getUser(String placa, String cc) {
         boolean aux=false;
         SQLiteDatabase bd = getReadableDatabase();
-        Cursor cursor = getReadableDatabase().rawQuery("select * from usuario where placa = ? and cc = ?", new String[]{placa, cc});
+        Cursor cursor = getReadableDatabase().rawQuery("select * from usuario where placa = ? and cc = ? limit 1", new String[]{placa, cc});
         if (cursor.moveToNext()) {
-            aux=true;
+            aux = true;
         }
         cursor.close();
         bd.close();

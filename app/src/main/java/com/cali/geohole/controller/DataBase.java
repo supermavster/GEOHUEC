@@ -79,9 +79,9 @@ public class DataBase extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor searchUser(String placa) {
-        Cursor c = getReadableDatabase().rawQuery("select * from usuario where placa = ?", new String[] { placa });
-        return  c;
+    public Cursor searchUser(String placa, String cc) {
+        Cursor cursor = getReadableDatabase().rawQuery("select * from usuario where placa = ? and cc = ? limit 1", new String[]{placa, cc});
+        return cursor;
     }
 
     public boolean getUser(String placa, String cc) {

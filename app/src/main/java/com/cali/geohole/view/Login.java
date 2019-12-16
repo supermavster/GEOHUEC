@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.cali.geohole.R;
 import com.cali.geohole.controller.DataBase;
+import com.cali.geohole.model.User;
 
 public class Login extends Fragment {
     DataBase DB;
@@ -40,27 +41,32 @@ public class Login extends Fragment {
         return view;
     }
 
-    public void validateLogin(){
-            btnLogin.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                   // new GetUser.execute();
-                    // Data elements
-                    String placa = txtPlaca.getText().toString();
-                    String cc = txtCC.getText().toString();
-                    Boolean checkDatabase = DB.getUser(placa, cc);
-                    if (checkDatabase) {
-
-                    }
-                }
-            });
+    public void validateLogin() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // Data elements
+                String placa = txtPlaca.getText().toString();
+                String cc = txtCC.getText().toString();
+                User user = new User(placa, cc);
+                new GetUser(user).execute();
+                // Boolean checkDatabase = DB.getUser(placa, cc);
+            }
+        });
     }
 
     private class GetUser extends AsyncTask<Void, Void, Cursor> {
 
+        private User user = null;
+
+        GetUser(User user) {
+            this.user = user;
+        }
+
         @Override
         protected Cursor doInBackground(Void... voids) {
-           return DB.searchUser("656");
+            Cursor checkUser = DB.searchUser(user.getPlaca(), user.getCedula());
+            return checkUser;
         }
 
         @Override

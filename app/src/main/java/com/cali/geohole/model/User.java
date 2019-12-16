@@ -1,6 +1,8 @@
 package com.cali.geohole.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     public String placa;
     public String cedula;
 

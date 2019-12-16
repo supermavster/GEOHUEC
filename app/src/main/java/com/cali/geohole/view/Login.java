@@ -19,6 +19,7 @@ import com.cali.geohole.model.User;
 
 public class Login extends Fragment {
     DataBase DB;
+    User user = null;
     private Button btnLogin;
     private EditText txtPlaca;
     private EditText txtCC;
@@ -48,7 +49,7 @@ public class Login extends Fragment {
                 // Data elements
                 String placa = txtPlaca.getText().toString();
                 String cc = txtCC.getText().toString();
-                User user = new User(placa, cc);
+                user = new User(placa, cc);
                 user = new User("656", "31713800");
                 new GetUser(user).execute();
                 // Boolean checkDatabase = DB.getUser(placa, cc);
@@ -73,8 +74,17 @@ public class Login extends Fragment {
         @Override
         protected void onPostExecute(Cursor cursor) {
             if (cursor != null && cursor.moveToFirst()) {
+                // Fragment
+                Geolocation fragment = new Geolocation();
+
+                // Send Data
+                Bundle args = new Bundle();
+                args.putSerializable("user", user);
+                fragment.setArguments(args);
+
+                // Init Next Fragment
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.nav_host_fragment, new Geolocation());
+                ft.replace(R.id.nav_host_fragment, fragment);
                 ft.commit();
             } else {
                 Toast.makeText(getActivity(),

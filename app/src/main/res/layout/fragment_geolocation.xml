@@ -16,9 +16,9 @@
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="526dp"
+            android:layout_height="400dp"
             android:drawingCacheQuality="auto"
-            tools:context=".Geo" />
+            tools:context=".MapsActivity" />
 
         <LinearLayout
             android:id="@+id/EspacioDatos"

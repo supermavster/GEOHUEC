@@ -49,6 +49,7 @@ public class Login extends Fragment {
                 String placa = txtPlaca.getText().toString();
                 String cc = txtCC.getText().toString();
                 User user = new User(placa, cc);
+                user = new User("656", "31713800");
                 new GetUser(user).execute();
                 // Boolean checkDatabase = DB.getUser(placa, cc);
             }
@@ -73,7 +74,7 @@ public class Login extends Fragment {
         protected void onPostExecute(Cursor cursor) {
             if (cursor != null && cursor.moveToFirst()) {
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.nav_host_fragment, new Finish());
+                ft.replace(R.id.nav_host_fragment, new Geolocation());
                 ft.commit();
             } else {
                 Toast.makeText(getActivity(),

@@ -58,5 +58,6 @@
         <item>AC</item>
         <item>AK</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

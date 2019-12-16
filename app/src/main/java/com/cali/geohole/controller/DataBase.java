@@ -1,8 +1,11 @@
 package com.cali.geohole.controller;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.cali.geohole.R;
 import com.cali.geohole.model.SQL;
@@ -77,6 +80,24 @@ public class DataBase extends SQLiteOpenHelper {
         if (!db.isReadOnly()) {
             db.execSQL("PRAGMA foreign_keys = ON;");
         }
+    }
+
+    public Cursor searchUser(String placa) {
+        Cursor c = getReadableDatabase().rawQuery("select * from usuario where placa = ?", new String[] { placa });
+        return  c;
+    }
+
+    public boolean getUser(String placa) {
+        boolean aux=false;
+        SQLiteDatabase bd = getReadableDatabase();
+        Cursor cursor = bd.rawQuery("SELECT * FROM usuario WHERE placa = " + placa,
+                null);
+        if (cursor.moveToNext()) {
+            aux=true;
+        }
+        cursor.close();
+        bd.close();
+        return aux;
     }
 }
 

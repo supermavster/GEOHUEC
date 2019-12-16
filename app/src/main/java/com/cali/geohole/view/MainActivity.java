@@ -1,10 +1,11 @@
-package com.cali.geohole.controller;
+package com.cali.geohole.view;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cali.geohole.R;
+import com.cali.geohole.controller.DataBase;
 
 public class MainActivity extends AppCompatActivity {
 

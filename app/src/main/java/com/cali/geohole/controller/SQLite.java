@@ -2,8 +2,10 @@ package com.cali.geohole.controller;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import com.cali.geohole.R;
@@ -81,5 +83,6 @@ public class SQLite extends AsyncTask<Void, Void, Void> {
         Toast.makeText(this.context, R.string.dialog_end, Toast.LENGTH_LONG).show();
 
     }
+
 }
 

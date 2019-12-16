@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.cali.geohole.R;
@@ -21,6 +20,8 @@ public class Login extends Fragment {
     DataBase DB;
     private Button btnLogin;
     private EditText txtPlaca;
+    private EditText txtCC;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class Login extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
         btnLogin = view.findViewById(R.id.btnLogin);
         txtPlaca = view.findViewById(R.id.txtPlaque);
+        txtCC = view.findViewById(R.id.txtPassword);
         DB = new DataBase(this.getContext());
         validateLogin();
         //verifyUser();
@@ -43,7 +45,13 @@ public class Login extends Fragment {
                 @Override
                 public void onClick(View arg0) {
                    // new GetUser.execute();
-                DB.getUser(txtPlaca.getText().toString());
+                    // Data elements
+                    String placa = txtPlaca.getText().toString();
+                    String cc = txtCC.getText().toString();
+                    Boolean checkDatabase = DB.getUser(placa, cc);
+                    if (checkDatabase) {
+
+                    }
                 }
             });
     }

@@ -4,10 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.view.Gravity;
-import android.widget.Toast;
 
-import com.cali.geohole.R;
 import com.cali.geohole.model.SQL;
 
 public class DataBase extends SQLiteOpenHelper {
@@ -46,31 +43,31 @@ public class DataBase extends SQLiteOpenHelper {
 
     public void SQLiteDataBaseBuild() {
         // Creador de la base de sqlite
-        sqLiteDatabase = this.context.openOrCreateDatabase(this.queries.DB, Context.MODE_PRIVATE, null);
+        sqLiteDatabase = this.context.openOrCreateDatabase(SQL.DB, Context.MODE_PRIVATE, null);
     }
 
 
     public void SQLiteTableBuild() {
 
-        sqLiteDatabase.execSQL(this.queries.CREATE_DB);
+        sqLiteDatabase.execSQL(SQL.CREATE_DB);
         // Creador table de la base de datos
     }
 
     public void DeletePreviousData() {
 
-        sqLiteDatabase.execSQL(this.queries.DELETE_DB);
+        sqLiteDatabase.execSQL(SQL.DELETE_DB);
 
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(this.queries.CREATE_DB);
+        database.execSQL(SQL.CREATE_DB);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(this.queries.DELETE_DB);
+        db.execSQL(SQL.DELETE_DB);
         onCreate(db);
     }
 
@@ -87,11 +84,10 @@ public class DataBase extends SQLiteOpenHelper {
         return  c;
     }
 
-    public boolean getUser(String placa) {
+    public boolean getUser(String placa, String cc) {
         boolean aux=false;
         SQLiteDatabase bd = getReadableDatabase();
-        Cursor cursor = bd.rawQuery("SELECT * FROM usuario WHERE placa = " + placa,
-                null);
+        Cursor cursor = getReadableDatabase().rawQuery("select * from usuario where placa = ? and cc = ?", new String[]{placa, cc});
         if (cursor.moveToNext()) {
             aux=true;
         }

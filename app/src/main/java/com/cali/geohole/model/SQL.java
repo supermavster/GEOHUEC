@@ -7,6 +7,7 @@ import com.cali.geohole.R;
 public class SQL {
 
     // Config Base
+    public static String DATABASE_NAME = "BD1";
     public static String DB;
     private String id;
     private String cc;
@@ -18,12 +19,12 @@ public class SQL {
 
     public SQL(Context context) {
         // Database
-        this.DB = context.getString(R.string.table_name);
+        DB = context.getString(R.string.table_name);
         this.id = context.getString(R.string.table_column_id);
         this.cc = context.getString(R.string.table_column_cc);
         // SQLS
-        CREATE_DB = "CREATE TABLE IF NOT EXISTS " + this.DB + "(" + this.id + " STRING, " + this.cc + " STRING);";
-        DELETE_DB = "DELETE FROM " + this.DB;
+        CREATE_DB = "CREATE TABLE IF NOT EXISTS " + DB + "(" + this.id + " STRING, " + this.cc + " STRING);";
+        DELETE_DB = "DELETE FROM " + DB;
     }
 
     public String setInsertUser(String placa, String cc) {

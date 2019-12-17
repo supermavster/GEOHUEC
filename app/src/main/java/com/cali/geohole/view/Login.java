@@ -1,17 +1,14 @@
 package com.cali.geohole.view;
 
-import android.database.Cursor;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.cali.geohole.R;
 import com.cali.geohole.controller.DataBase;
@@ -51,46 +48,15 @@ public class Login extends Fragment {
                 String cc = txtCC.getText().toString();
                 user = new User(placa, cc);
                 user = new User("656", "31713800");
-                new GetUser(user).execute();
-                // Boolean checkDatabase = DB.getUser(placa, cc);
+
+                Boolean checkDatabase = DB.getUser(placa, cc);
+                 if(checkDatabase){
+                     Intent viewMap= new Intent(getContext(), MapsActivity.class);
+                     startActivity(viewMap);
+                }
             }
         });
     }
 
-    private class GetUser extends AsyncTask<Void, Void, Cursor> {
 
-        private User user = null;
-
-        GetUser(User user) {
-            this.user = user;
-        }
-
-        @Override
-        protected Cursor doInBackground(Void... voids) {
-            Cursor checkUser = DB.searchUser(user.getPlaca(), user.getCedula());
-            return checkUser;
-        }
-
-        @Override
-        protected void onPostExecute(Cursor cursor) {
-            if (cursor != null && cursor.moveToFirst()) {
-                // Fragment
-                Geolocation fragment = new Geolocation();
-
-                // Send Data
-                Bundle args = new Bundle();
-                args.putSerializable("user", user);
-                fragment.setArguments(args);
-
-                // Init Next Fragment
-                final FragmentTransaction ft = getFragmentManager().beginTransaction();
-                ft.replace(R.id.nav_host_fragment, fragment);
-                ft.commit();
-            } else {
-                Toast.makeText(getActivity(),
-                        "No se encuentra el usuario", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-    }
 }

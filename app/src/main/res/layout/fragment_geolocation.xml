@@ -12,14 +12,14 @@
         android:layout_height="match_parent">
 
         <fragment
-            android:id="@+id/map"
+            android:id="@+id/mapFragment"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:drawingCacheQuality="auto"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context=".MapsActivity" />
+            tools:context=".view.MapsActivity" />
 
         <TextView
             android:id="@+id/textViewDirec"
@@ -31,8 +31,7 @@
             android:text="@string/direcci_n"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/map" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/textViewDirGPS"

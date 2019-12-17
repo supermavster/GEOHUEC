@@ -1,36 +1,33 @@
-package com.cali.geohole;
+package com.cali.geohole.view;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.cali.geohole.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.karumi.dexter.Dexter;
@@ -39,9 +36,7 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -51,6 +46,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     GoogleApiClient mGoogleApiClient;
     private FusedLocationProviderClient mLastLocation;
     private GoogleMap mMap;
+    LatLng locationUser;
+    Button btnOpenAddPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager()
-                        .findFragmentById(R.id.map);
+                        .findFragmentById(R.id.mapFragment);
+        btnOpenAddPhoto = findViewById(R.id.btnGeolocation);
 
         mapFragment.getMapAsync(this);
 
@@ -76,6 +74,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         checkPermission();
 
+    }
+
+    public void viewPhoto() {
+        btnOpenAddPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                /*FragmentManager manager = ;
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.nav_host_fragment, manager)
+                transaction.commit()*/
+            }
+        });
     }
 
 
@@ -119,6 +129,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void onSuccess(Location location) {
                     if(location != null){
                         LatLng myLocation = new LatLng(location.getLatitude(),location.getLongitude());
+                        locationUser = myLocation;
                         mMap.addMarker(new MarkerOptions().position(myLocation).title("Mi ubicacion"));
                         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 17);
                         mMap.animateCamera(cameraUpdate);

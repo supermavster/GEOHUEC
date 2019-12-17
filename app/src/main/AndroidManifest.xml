@@ -46,10 +46,10 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyBcHw2TwhmJk89oEOcYpgCeUB-TmbQQUOE"/>
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".view.MapsActivity"
             android:label="@string/cali"></activity>
         <activity
             android:name=".view.MainActivity"

@@ -15,8 +15,9 @@
             android:id="@+id/mapFragment"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="320dp"
             android:drawingCacheQuality="auto"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:context=".view.MapsActivity" />
@@ -30,8 +31,10 @@
             android:gravity="center"
             android:text="@string/direcci_n"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/txtAddress"
+            app:layout_constraintEnd_toEndOf="@+id/txtAddress"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/txtAddress"
             app:layout_constraintTop_toBottomOf="@+id/mapFragment" />
 
         <TextView
@@ -44,8 +47,9 @@
             android:text="@string/cali"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/textViewMaphueco"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewMaphueco"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textViewMaphueco"
             app:layout_constraintTop_toBottomOf="@+id/txtAddress" />
 
         <TextView
@@ -57,8 +61,10 @@
             android:text="@string/dimensiones"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDirGPS" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -68,8 +74,10 @@
             android:layout_marginBottom="16dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/btnGeolocation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintEnd_toEndOf="@+id/btnGeolocation"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/btnGeolocation"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMaphueco">
 
             <LinearLayout
                 android:layout_width="32dp"
@@ -167,11 +175,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_horizontal|center_vertical"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/registrar_nuevo_hueco"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <EditText
             android:id="@+id/txtAddress"
@@ -180,8 +190,10 @@
             android:ems="10"
             android:hint="@string/direcci_n"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textViewDirGPS"
+            app:layout_constraintEnd_toEndOf="@+id/textViewDirGPS"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/textViewDirGPS"
             app:layout_constraintTop_toBottomOf="@+id/textViewDirec" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

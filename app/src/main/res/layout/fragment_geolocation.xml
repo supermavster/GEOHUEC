@@ -15,8 +15,9 @@
             android:id="@+id/mapFragment"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="250dp"
             android:drawingCacheQuality="auto"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:context=".view.MapsActivity" />
@@ -26,23 +27,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="200dp"
             android:gravity="center"
             android:text="@string/direcci_n"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txtAddress"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mapFragment" />
+
+        <EditText
+            android:id="@+id/txtAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="@string/direcci_n"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/textViewMaphueco"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDirec" />
 
         <TextView
             android:id="@+id/textViewMaphueco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:text="@string/dimensiones"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtAddress" />
 
@@ -51,11 +72,13 @@
             android:layout_width="331dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/btnGeolocation"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMaphueco">
 
             <LinearLayout
                 android:layout_width="32dp"
@@ -157,20 +180,10 @@
             android:text="@string/registrar_nuevo_hueco"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/txtAddress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:hint="@string/direcci_n"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDirec" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

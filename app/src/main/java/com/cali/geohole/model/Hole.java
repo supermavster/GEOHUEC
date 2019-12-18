@@ -12,7 +12,7 @@ public class Hole implements Serializable {
     Double latitude;
     Double longitude;
     // Foto
-    String photo;
+    Uri photo;
 
     public Hole(String address, Double length, Double width, Double height, Double latitude, Double longitude) {
         this.address = address;
@@ -71,7 +71,7 @@ public class Hole implements Serializable {
         this.longitude = longitude;
     }
 
-    public String getPhoto() {
+    public Uri  getPhoto() {
         return photo;
     }
 

@@ -119,7 +119,7 @@ public class DataBase extends SQLiteOpenHelper {
 
         SQLiteDatabase bd = getReadableDatabase();
         // '" + userId + "', '" +< hole.getLatitude() +"', '" + hole.getLongitude() +"', date('now'), '" + hole.getPhoto() +"', '" + hole.getHeight() +"', '" + hole.getWidth() +"', '" + hole.getLength() +"', '" + hole.getAddress() + "'
-        Cursor cursor = getReadableDatabase().rawQuery(SQL.INSERT_HOLE, new String[]{ user.getUserId().toString(),  hole.getLatitude().toString(), hole.getLongitude().toString(), "date('now')", hole.getPhoto(), hole.getHeight().toString(), hole.getWidth().toString(), hole.getLength().toString(), hole.getAddress()  });
+          Cursor cursor = getReadableDatabase().rawQuery(SQL.INSERT_HOLE, new String[]{ user.getUserId().toString(),  hole.getLatitude().toString(), hole.getLongitude().toString(), "date('now')", hole.getPhoto(), hole.getHeight().toString(), hole.getWidth().toString(), hole.getLength().toString(), hole.getAddress()  });
         if (cursor.moveToNext()) {
             aux = true;
         }

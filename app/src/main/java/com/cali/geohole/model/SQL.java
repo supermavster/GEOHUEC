@@ -46,10 +46,10 @@ public class SQL {
 
         // Select
         LOGIN = "select * from " + DB_USER + " where " + this.id + " = ? and " + this.cc + " = ? limit 1";
-        INSERT_USER = "INSERT INTO " + DB_HOLE + " (idUser, latitud, longitud, fecha, foto, alto, ancho, profundo, direccion) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         // Hole
-        INSERT_HOLE = "";
+        INSERT_HOLE = "INSERT INTO " + DB_HOLE + " (idUser, latitud, longitud, fecha, foto, alto, ancho, profundo, direccion) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
     }
 
     public String setInsertUser(String placa, String cc) {

@@ -41,7 +41,7 @@ public class Finish extends Activity {
             @Override
             public void onClick(View arg0) {
                 saveData();
-                finish();
+                finishAffinity();
 
             }
         });

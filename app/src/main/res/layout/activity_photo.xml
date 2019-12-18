@@ -56,13 +56,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="21dp"
             android:text="@string/capturar"
-            app:layout_constraintBottom_toTopOf="@+id/buttonEnv"
+            app:layout_constraintBottom_toTopOf="@+id/btnSend"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/AreaFot" />
 
         <Button
-            android:id="@+id/buttonEnv"
+            android:id="@+id/btnSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="62dp"

@@ -57,11 +57,11 @@
         android:layout_marginTop="56dp"
         android:ems="10"
         android:hint="@string/password"
-        android:inputType="textPassword"
+        android:importantForAutofill="no"
+        android:inputType="number|textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPlaque"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/txtPlaque" />
 
     <EditText
         android:id="@+id/txtPlaque"
@@ -70,11 +70,11 @@
         android:layout_marginTop="92dp"
         android:ems="10"
         android:hint="@string/plaque"
-        android:inputType="textPersonName"
+        android:importantForAutofill="no"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <TextView
         android:id="@+id/lblPassword"

@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.cali.geohole.R;
+import com.cali.geohole.model.Hole;
 import com.cali.geohole.model.User;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -102,18 +103,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnOpenAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                addData();
                 /*FragmentManager manager = ;
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.replace(R.id.nav_host_fragment, manager)
                 transaction.commit()*/
                 Intent viewPhoto= new Intent(getApplicationContext(), PhotoActivity.class);
+                // Send data A
+                viewPhoto.putExtra("user", user);
+                // Start new view
                 startActivity(viewPhoto);
-
             }
         });
     }
 
-
+    private void addData(){
+        // Get Data
+        String address = txtAddress.getText().toString();
+        Double length = Double.parseDouble(txtLength.getText().toString());
+        Double width = Double.parseDouble(txtWidth.getText().toString());
+        Double height = Double.parseDouble(txtHeight.getText().toString());
+        Double latitude = locationUser.latitude;
+        Double longitude = locationUser.longitude;
+        // Make Object
+        Hole hole = new Hole(address, length, width, height, latitude, longitude);
+        user.addGeoData(hole);
+    }
     private void checkPermission() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

@@ -21,7 +21,6 @@ public class DataBase extends SQLiteOpenHelper {
         super(context, SQL.DATABASE_NAME, null, 1);
         this.context = context;
         initVariables();
-        init();
     }
 
     public void init(){

@@ -12,11 +12,9 @@ public class Hole implements Serializable {
     Double latitude;
     Double longitude;
     // Foto
-    Uri photo;
-    Integer count;
+    String photo;
 
     public Hole(String address, Double length, Double width, Double height, Double latitude, Double longitude) {
-        this.count++;
         this.address = address;
         this.length = length;
         this.width = width;
@@ -25,14 +23,6 @@ public class Hole implements Serializable {
         this.longitude = longitude;
     }
 
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
 
     public String getAddress() {
         return address;
@@ -82,11 +72,11 @@ public class Hole implements Serializable {
         this.longitude = longitude;
     }
 
-    public Uri  getPhoto() {
+    public String  getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Uri photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 }

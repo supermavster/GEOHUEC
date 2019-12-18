@@ -2,9 +2,12 @@ package com.cali.geohole.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -88,7 +91,7 @@ public class PhotoActivity extends Activity {
             ArrayList<Hole> holes = user.getHoles();
             int lastHole = holes.size() - 1;
             Hole hole = holes.get(lastHole);
-            hole.setPhoto(imageUri);
+            hole.setPhoto(imageUri.toString());
             holes.set(lastHole, hole);
             user.setHoles(holes);
 
@@ -98,6 +101,9 @@ public class PhotoActivity extends Activity {
             viewFinish.putExtra("user", user);
             // Start new view
             startActivity(viewFinish);
+
+
+
         }else {
             Toast.makeText(PhotoActivity.this, "Debe de tomar o elegir una foto para poder continuar", Toast.LENGTH_LONG);
         }

@@ -37,6 +37,7 @@ public class Login extends Fragment {
         txtCC = view.findViewById(R.id.txtPassword);
         // Init DB
         DB = new DataBase(this.getContext());
+        DB.init();
         // actions
         validateLogin();
 

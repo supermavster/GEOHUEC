@@ -57,6 +57,8 @@ public class Login extends Fragment {
                 // Check Datas SQLite
                 boolean checkDatabase = DB.getUser(placa, cc);
                 if (checkDatabase) {
+                    Integer uid = DB.getUserID(placa, cc);
+                    user.setUserId(uid);
                     // Init Maps
                     Intent viewMap = new Intent(getContext(), MapsActivity.class);
                     // Send data A

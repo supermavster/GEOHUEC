@@ -5,8 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.cali.geohole.model.Hole;
 import com.cali.geohole.model.SQL;
 import com.cali.geohole.model.User;
+
+import java.util.ArrayList;
 
 public class DataBase extends SQLiteOpenHelper {
 
@@ -46,12 +49,15 @@ public class DataBase extends SQLiteOpenHelper {
     public void SQLiteTableBuild() {
 
         sqLiteDatabase.execSQL(SQL.CREATE_DB);
+        sqLiteDatabase.execSQL(SQL.CREATE_DB_HOLE);
+
         // Creador table de la base de datos
     }
 
     public void DeletePreviousData() {
 
         sqLiteDatabase.execSQL(SQL.DELETE_DB);
+        sqLiteDatabase.execSQL(SQL.DELETE_DB_HOLE);
 
     }
 
@@ -92,16 +98,34 @@ public class DataBase extends SQLiteOpenHelper {
         return aux;
     }
 
+    public int getUserID(String placa, String cc) {
+        Integer uid = 0;
+        SQLiteDatabase bd = getReadableDatabase();
+        Cursor cursor = getReadableDatabase().rawQuery(SQL.LOGIN, new String[]{placa, cc});
+        if (cursor.moveToNext()) {
+            uid = cursor.getInt(cursor.getColumnIndex("idUser"));
+        }
+        cursor.close();
+        bd.close();
+        return uid;
+    }
+
+
     public boolean insertHole(User user) {
         boolean aux = false;
-        /*SQLiteDatabase bd = getReadableDatabase();
-        Cursor cursor = getReadableDatabase().rawQuery(SQL.INSERT_HOLE, user);
+        ArrayList<Hole> holes = user.getHoles();
+        int sizeHole = holes.size() - 1;
+        Hole hole = holes.get(sizeHole);
+
+        SQLiteDatabase bd = getReadableDatabase();
+        // '" + userId + "', '" +< hole.getLatitude() +"', '" + hole.getLongitude() +"', date('now'), '" + hole.getPhoto() +"', '" + hole.getHeight() +"', '" + hole.getWidth() +"', '" + hole.getLength() +"', '" + hole.getAddress() + "'
+        Cursor cursor = getReadableDatabase().rawQuery(SQL.INSERT_HOLE, new String[]{ user.getUserId().toString(),  hole.getLatitude().toString(), hole.getLongitude().toString(), "date('now')", hole.getPhoto(), hole.getHeight().toString(), hole.getWidth().toString(), hole.getLength().toString(), hole.getAddress()  });
         if (cursor.moveToNext()) {
             aux = true;
         }
         cursor.close();
         bd.close();
-        */
+
         return aux;
     }
 }

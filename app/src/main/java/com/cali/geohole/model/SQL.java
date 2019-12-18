@@ -19,8 +19,14 @@ public class SQL {
     public static String DB_HOLE;
     public static String parametersHole = "idHueco INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, idUser INTEGER, latitud DOUBLE, longitud DOUBLE, fecha DATE, foto STRING, alto STRING, ancho STRING, profundo STRING, direccion STRING";
     // SQLs
+
     public static String CREATE_DB;
+    public static String CREATE_DB_HOLE;
+
     public static String DELETE_DB;
+    public static String DELETE_DB_HOLE;
+
+
     public static String INSERT_USER;
 
     public SQL(Context context) {
@@ -29,17 +35,18 @@ public class SQL {
         this.id = context.getString(R.string.table_column_id);
         this.cc = context.getString(R.string.table_column_cc);
         // Hole
-        DB_HOLE = "huco";
+        DB_HOLE = "hueco";
 
         // SQLS
         CREATE_DB = "CREATE TABLE IF NOT EXISTS " + DB_USER + "(idUser INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + this.id + " STRING, " + this.cc + " STRING);";
-        CREATE_DB += "CREATE TABLE IF NOT EXISTS " + DB_HOLE + "(" + this.parametersHole + ");";
+        CREATE_DB_HOLE = "CREATE TABLE IF NOT EXISTS " + DB_HOLE + "(" + this.parametersHole + ");";
 
         DELETE_DB = "DELETE FROM " + DB_USER + ";";
-        DELETE_DB += "DELETE FROM " + DB_HOLE + ";";
+        DELETE_DB_HOLE = "DELETE FROM " + DB_HOLE + ";";
 
         // Select
         LOGIN = "select * from " + DB_USER + " where " + this.id + " = ? and " + this.cc + " = ? limit 1";
+        INSERT_USER = "INSERT INTO " + DB_HOLE + " (idUser, latitud, longitud, fecha, foto, alto, ancho, profundo, direccion) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         // Hole
         INSERT_HOLE = "";
@@ -50,9 +57,9 @@ public class SQL {
         return INSERT_USER;
     }
 
-    public String setInsertHole(Hole hole) {
-        INSERT_USER = "INSERT INTO " + DB_HOLE + " (latitud, longitud, fecha, foto, alto, ancho, profundo, direccion) VALUES('" + hole.getLatitude() +"', '" + hole.getLongitude() +"', date('now'), '" + hole.getPhoto() +"', '" + hole.getHeight() +"', '" + hole.getWidth() +"', '" + hole.getLength() +"', '" + hole.getAddress() + "');";
-        return INSERT_USER;
+    public String setInsertHole(Integer userId, Hole hole) {
+        return "INSERT INTO " + DB_HOLE + " (idUser, latitud, longitud, fecha, foto, alto, ancho, profundo, direccion) VALUES('" + userId + "', '" + hole.getLatitude() +"', '" + hole.getLongitude() +"', date('now'), '" + hole.getPhoto() +"', '" + hole.getHeight() +"', '" + hole.getWidth() +"', '" + hole.getLength() +"', '" + hole.getAddress() + "');";
+
     }
 }
 

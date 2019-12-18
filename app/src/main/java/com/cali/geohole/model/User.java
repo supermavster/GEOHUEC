@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable {
+    public Integer userId;
     public String placa;
     public String cedula;
     public ArrayList<Hole> holes = null;
@@ -13,6 +14,20 @@ public class User implements Serializable {
         this.placa = placa;
         this.cedula = cedula;
         holes = new ArrayList<Hole>();
+    }
+
+    public User(Integer userId, String placa, String cedula) {
+        this.userId = userId;
+        this.placa = placa;
+        this.cedula = cedula;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getPlaca() {

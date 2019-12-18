@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cali.geohole.model.SQL;
+import com.cali.geohole.model.User;
 
 public class DataBase extends SQLiteOpenHelper {
 
@@ -89,6 +90,19 @@ public class DataBase extends SQLiteOpenHelper {
         }
         cursor.close();
         bd.close();
+        return aux;
+    }
+
+    public boolean insertHole(User user) {
+        boolean aux = false;
+        /*SQLiteDatabase bd = getReadableDatabase();
+        Cursor cursor = getReadableDatabase().rawQuery(SQL.INSERT_HOLE, user);
+        if (cursor.moveToNext()) {
+            aux = true;
+        }
+        cursor.close();
+        bd.close();
+        */
         return aux;
     }
 }

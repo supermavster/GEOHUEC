@@ -91,6 +91,15 @@ public class PhotoActivity extends Activity {
             hole.setPhoto(imageUri);
             holes.set(lastHole, hole);
             user.setHoles(holes);
+
+            // send new data
+            Intent viewFinish = new Intent(getApplicationContext(), Finish.class);
+            // Send data A
+            viewFinish.putExtra("user", user);
+            // Start new view
+            startActivity(viewFinish);
+        }else {
+            Toast.makeText(PhotoActivity.this, "Debe de tomar o elegir una foto para poder continuar", Toast.LENGTH_LONG);
         }
     }
 

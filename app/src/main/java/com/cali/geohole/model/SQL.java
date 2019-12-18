@@ -7,7 +7,8 @@ import com.cali.geohole.R;
 public class SQL {
 
     public static String LOGIN ;
-    // Config Base
+    public static String INSERT_HOLE;
+    // Config
     public static String DATABASE_NAME = "BD1";
     // User
     public static String DB_USER;
@@ -16,7 +17,7 @@ public class SQL {
 
     // Hole
     public static String DB_HOLE;
-    public static String parametersHole = "idHueco STRING, latitud DOUBLE, longitud DOUBLE, fecha DATE, foto STRING, alto STRING, ancho STRING, profundo STRING, direccion STRING";
+    public static String parametersHole = "idHueco INTEGER NOT NULL AUTO_INCREMENT, idUser INTEGER, latitud DOUBLE, longitud DOUBLE, fecha DATE, foto STRING, alto STRING, ancho STRING, profundo STRING, direccion STRING";
     // SQLs
     public static String CREATE_DB;
     public static String DELETE_DB;
@@ -31,7 +32,7 @@ public class SQL {
         DB_HOLE = "huco";
 
         // SQLS
-        CREATE_DB = "CREATE TABLE IF NOT EXISTS " + DB_USER + "(" + this.id + " STRING, " + this.cc + " STRING);";
+        CREATE_DB = "CREATE TABLE IF NOT EXISTS " + DB_USER + "(idUser INTEGER NOT NULL AUTO_INCREMENT, " + this.id + " STRING, " + this.cc + " STRING);";
         CREATE_DB += "CREATE TABLE IF NOT EXISTS " + DB_HOLE + "(" + this.parametersHole + ");";
 
         DELETE_DB = "DELETE FROM " + DB_USER + ";";
@@ -39,15 +40,18 @@ public class SQL {
 
         // Select
         LOGIN = "select * from " + DB_USER + " where " + this.id + " = ? and " + this.cc + " = ? limit 1";
+
+        // Hole
+        INSERT_HOLE = "";
     }
 
     public String setInsertUser(String placa, String cc) {
-        INSERT_USER = "INSERT INTO " + DB_USER + " (" + this.id + "," + this.cc + ") VALUES('" + placa + "', '" + cc + "');";
+        INSERT_USER = "INSERT INTO " + DB_USER + " (NULL, " + this.id + "," + this.cc + ") VALUES('" + placa + "', '" + cc + "');";
         return INSERT_USER;
     }
 
     public String setInsertHole(Hole hole) {
-        INSERT_USER = "INSERT INTO " + DB_HOLE + " (idHueco, latitud, longitud, fecha, foto, alto, ancho, profundo, direccion) VALUES('" + hole.getCount() + "', '" + hole.getLatitude() +"', '" + hole.getLongitude() +"', date('now'), '" + hole.getPhoto().getPath() +"', '" + hole.getHeight() +"', '" + hole.getWidth() +"', '" + hole.getLength() +"', '" + hole.getAddress() + "');";
+        INSERT_USER = "INSERT INTO " + DB_HOLE + " (idHueco, latitud, longitud, fecha, foto, alto, ancho, profundo, direccion) VALUES(NULL, '" + hole.getLatitude() +"', '" + hole.getLongitude() +"', date('now'), '" + hole.getPhoto().getPath() +"', '" + hole.getHeight() +"', '" + hole.getWidth() +"', '" + hole.getLength() +"', '" + hole.getAddress() + "');";
         return INSERT_USER;
     }
 }

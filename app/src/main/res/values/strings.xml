@@ -29,9 +29,9 @@
     <string name="direcci_n">DIRECCIÓN</string>
     <string name="dimensiones">DIMENSIONES</string>
     <string name="numeral">#</string>
-    <string name="largo_cm">Largo cm</string>
-    <string name="ancho_cm">Ancho cm</string>
-    <string name="profundo_cm">Profundo cm</string>
+    <string name="largo_cm">Largo [cm]</string>
+    <string name="ancho_cm">Ancho [cm]</string>
+    <string name="profundo_cm">Profundo [cm]</string>
     <string name="cali">CALI</string>
 
     <!-- Sub dir -->
@@ -60,4 +60,10 @@
     </string-array>
     <string name="title_activity_maps">Map</string>
 
+    <!-- Login -->
+    <string name="error_login">Datos incorrectos.</string>
+
+    <!-- Maps -->
+    <string name="my_location">Mi ubicación</string>
+    <string name="error_maps">No se pudo obtener la dirección</string>
 </resources>

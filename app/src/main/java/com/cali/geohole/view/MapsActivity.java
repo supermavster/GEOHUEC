@@ -6,18 +6,22 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.cali.geohole.R;
+import com.cali.geohole.model.User;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,43 +41,61 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
+
+    // Global Variables
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     GoogleApiClient mGoogleApiClient;
     private FusedLocationProviderClient mLastLocation;
     private GoogleMap mMap;
-    LatLng locationUser;
+    // Lat Lon
+    LatLng locationUser = null;
+    User user;
+    // Elements View
     Button btnOpenAddPhoto;
+    EditText txtAddress;
+    EditText txtLength;
+    EditText txtWidth;
+    EditText txtHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Init View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        // Get Data B
+        this.user = (User) getIntent().getSerializableExtra("user");
 
-        SupportMapFragment mapFragment = (SupportMapFragment)
-                getSupportFragmentManager()
-                        .findFragmentById(R.id.mapFragment);
-        btnOpenAddPhoto = findViewById(R.id.btnGeolocation);
-
+        // Init Map
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
-
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+
+        // Start elements View
+        btnOpenAddPhoto = findViewById(R.id.btnGeolocation);
+        txtAddress = findViewById(R.id.txtAddress);
+        txtLength = findViewById(R.id.txtLength);
+        txtWidth = findViewById(R.id.txtWidth);
+        txtHeight = findViewById(R.id.txtHeight);
+
+        // Change View
+        viewPhoto();
     }
+
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         checkPermission();
-
     }
 
     public void viewPhoto() {
@@ -107,10 +129,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 mLastLocation.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                                     @Override
                                     public void onSuccess(Location location) {
-                                        LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                                        mMap.addMarker(new MarkerOptions().position(myLocation).title("Mi ubicacion"));
-                                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 17);
-                                        mMap.animateCamera(cameraUpdate);
+                                        locationUser = new LatLng(location.getLatitude(), location.getLongitude());
+                                        addMark();
+                                        setAddress();
                                     }
                                 });
                             }
@@ -127,18 +148,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mLastLocation.getLastLocation().addOnSuccessListener(new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
-                    if(location != null){
-                        LatLng myLocation = new LatLng(location.getLatitude(),location.getLongitude());
-                        locationUser = myLocation;
-                        mMap.addMarker(new MarkerOptions().position(myLocation).title("Mi ubicacion"));
-                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 17);
-                        mMap.animateCamera(cameraUpdate);
-                    }
-                    else{
-
+                    if (location != null) {
+                        locationUser = new LatLng(location.getLatitude(), location.getLongitude());
+                        addMark();
+                        setAddress();
+                    } else {
+                        Toast.makeText(MapsActivity.this, R.string.error_maps, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+        }
+    }
+
+    public void addMark() {
+        mMap.addMarker(new MarkerOptions().position(locationUser).title(getString(R.string.my_location)));
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(locationUser, 17);
+        mMap.animateCamera(cameraUpdate);
+
+    }
+
+    public void setAddress() {
+        double latitude = locationUser.latitude;
+        double longitude = locationUser.longitude;
+        try {
+            Geocoder geo = new Geocoder(MapsActivity.this.getApplicationContext(), Locale.getDefault());
+            List<Address> addresses = geo.getFromLocation(latitude, longitude, 1);
+            if (addresses.isEmpty()) {
+                txtAddress.setText("Waiting for Location");
+            } else {
+                if (addresses.size() > 0) {
+                    txtAddress.setText(addresses.get(0).getFeatureName() + ", " + addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea() + ", " + addresses.get(0).getCountryName());
+                    //Toast.makeText(getApplicationContext(), "Address:- " + addresses.get(0).getFeatureName() + addresses.get(0).getAdminArea() + addresses.get(0).getLocality(), Toast.LENGTH_LONG).show();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // getFromLocation() may sometimes fail
         }
     }
 

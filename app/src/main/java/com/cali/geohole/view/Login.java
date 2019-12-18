@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -30,12 +31,15 @@ public class Login extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        // Init variables
         btnLogin = view.findViewById(R.id.btnLogin);
         txtPlaca = view.findViewById(R.id.txtPlaque);
         txtCC = view.findViewById(R.id.txtPassword);
+        // Init DB
         DB = new DataBase(this.getContext());
+        // actions
         validateLogin();
-        //verifyUser();
+
         return view;
     }
 
@@ -47,12 +51,19 @@ public class Login extends Fragment {
                 String placa = txtPlaca.getText().toString();
                 String cc = txtCC.getText().toString();
                 user = new User(placa, cc);
-                user = new User("656", "31713800");
+                // user = new User("656", "31713800");
 
-                Boolean checkDatabase = DB.getUser(placa, cc);
-                 if(checkDatabase){
-                     Intent viewMap= new Intent(getContext(), MapsActivity.class);
-                     startActivity(viewMap);
+                // Check Datas SQLite
+                boolean checkDatabase = DB.getUser(placa, cc);
+                if (checkDatabase) {
+                    // Init Maps
+                    Intent viewMap = new Intent(getContext(), MapsActivity.class);
+                    // Send data A
+                    viewMap.putExtra("user", user);
+                    // Start new view
+                    startActivity(viewMap);
+                } else {
+                    Toast.makeText(getContext(), R.string.error_login, Toast.LENGTH_SHORT).show();
                 }
             }
         });

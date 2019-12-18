@@ -16,7 +16,7 @@ public class SQL {
 
     // Hole
     public static String DB_HOLE;
-    public static String parametersHole = "idHueco STRING";
+    public static String parametersHole = "idHueco STRING, latitud DOUBLE, longitud DOUBLE, fecha DATE, foto STRING, alto STRING, ancho STRING, profundo STRING, direccion STRING";
     // SQLs
     public static String CREATE_DB;
     public static String DELETE_DB;

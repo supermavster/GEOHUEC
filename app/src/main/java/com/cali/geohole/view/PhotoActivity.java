@@ -1,21 +1,24 @@
 package com.cali.geohole.view;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import android.widget.Toast;
 
 import com.cali.geohole.R;
+import com.cali.geohole.model.User;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,20 +26,75 @@ import java.io.IOException;
 import id.zelory.compressor.Compressor;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
+import pl.tajchert.nammu.Nammu;
+import pl.tajchert.nammu.PermissionCallback;
 
-public class Photo extends AppCompatActivity {
+public class PhotoActivity extends Activity {
 
     private ImageView image;
+    private Button btnPhoto;
+    private EasyImage easyImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_photo);
-        EasyImage.configuration(this).setImagesFolderName("Images") // images folder name, default is "EasyImage"
+        Nammu.init(this);
+        image = findViewById(R.id.imageViewLogF);
+        btnPhoto = findViewById(R.id.buttonCap);
+        EasyImage.configuration(this)
+                .setImagesFolderName("imagesApp") // images folder name, default is "EasyImage"
                 .saveInAppExternalFilesDir() // if you want to use root internal memory for storying images
                 .saveInRootPicturesDirectory();
-        image = findViewById(R.id.imageViewLogF);
+
+openPhoto();
     }
+
+    public void openPhoto(){
+        btnPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+              onPhotoRegister();
+            }
+        });
+    }
+
+    public void onPhotoRegister(){
+
+        requesPermissionsForCameraAndGallery(new PermissionCallback() {
+            @Override
+            public void permissionGranted() {
+                EasyImage.openChooserWithGallery(PhotoActivity.this, "Seleccione Origen", 0);
+            }
+
+            @Override
+            public void permissionRefused() {
+                Toast.makeText(PhotoActivity.this,"No hay permisos",Toast.LENGTH_LONG);
+            }
+        });
+
+
+    }
+
+
+    protected void requesPermissionsForCameraAndGallery(PermissionCallback permissionCallback){
+        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA};
+        int permissionCheck1 = ContextCompat.checkSelfPermission(this, permissions[0]);
+        int permissionCheck2 = ContextCompat.checkSelfPermission(this, permissions[1]);
+        if (permissionCheck1 != PackageManager.PERMISSION_GRANTED || permissionCheck2!=PackageManager.PERMISSION_GRANTED) {
+            Nammu.askForPermission(this, permissions, permissionCallback);
+        }
+        else{
+            permissionCallback.permissionGranted();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Nammu.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 
 
     @Override
@@ -52,8 +110,8 @@ public class Photo extends AppCompatActivity {
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
                 try {
-                    File compressedFile = compressImage(getApplicationContext(),imageFile);
-                    Uri imageUri= Uri.fromFile(compressedFile);
+                    File compressedFile = compressImage(getApplicationContext(), imageFile);
+                    Uri imageUri = Uri.fromFile(compressedFile);
                     image.setImageURI(imageUri);
                 } catch (IOException e) {
                     e.printStackTrace();

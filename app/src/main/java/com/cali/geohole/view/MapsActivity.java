@@ -3,7 +3,6 @@ package com.cali.geohole.view;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -15,7 +14,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.cali.geohole.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -66,6 +67,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
+        viewPhoto();
     }
     @SuppressLint("MissingPermission")
     @Override
@@ -80,10 +82,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnOpenAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                /*FragmentManager manager = ;
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.nav_host_fragment, manager)
-                transaction.commit()*/
+
+                Intent viewPhoto= new Intent(getApplicationContext(), PhotoActivity.class);
+                startActivity(viewPhoto);
             }
         });
     }

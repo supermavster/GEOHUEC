@@ -10,10 +10,6 @@ import com.cali.geohole.model.SQL;
 public class DataBase extends SQLiteOpenHelper {
 
     // Varaibles & Const
-
-    static String DATABASE_NAME = "usuario";
-
-
     Context context;
     SQLiteDatabase sqLiteDatabase;
     SQLite SQLite;
@@ -21,7 +17,7 @@ public class DataBase extends SQLiteOpenHelper {
 
 
     public DataBase(Context context){
-        super(context, DATABASE_NAME, null, 1);
+        super(context, SQL.DATABASE_NAME, null, 1);
         this.context = context;
         initVariables();
         init();
@@ -43,7 +39,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     public void SQLiteDataBaseBuild() {
         // Creador de la base de sqlite
-        sqLiteDatabase = this.context.openOrCreateDatabase(SQL.DB, Context.MODE_PRIVATE, null);
+        sqLiteDatabase = this.context.openOrCreateDatabase(SQL.DATABASE_NAME, Context.MODE_PRIVATE, null);
     }
 
 
@@ -80,14 +76,14 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     public Cursor searchUser(String placa, String cc) {
-        Cursor cursor = getReadableDatabase().rawQuery("select * from usuario where placa = ? and cc = ? limit 1", new String[]{placa, cc});
+        Cursor cursor = getReadableDatabase().rawQuery(SQL.LOGIN, new String[]{placa, cc});
         return cursor;
     }
 
     public boolean getUser(String placa, String cc) {
         boolean aux=false;
         SQLiteDatabase bd = getReadableDatabase();
-        Cursor cursor = getReadableDatabase().rawQuery("select * from usuario where placa = ? and cc = ? limit 1", new String[]{placa, cc});
+        Cursor cursor = getReadableDatabase().rawQuery(SQL.LOGIN, new String[]{placa, cc});
         if (cursor.moveToNext()) {
             aux = true;
         }

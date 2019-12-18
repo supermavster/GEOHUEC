@@ -6,12 +6,17 @@ import com.cali.geohole.R;
 
 public class SQL {
 
+    public static String LOGIN ;
     // Config Base
     public static String DATABASE_NAME = "BD1";
-    public static String DB;
+    // User
+    public static String DB_USER;
     private String id;
     private String cc;
 
+    // Hole
+    public static String DB_HOLE;
+    public static String parametersHole = "idHueco STRING";
     // SQLs
     public static String CREATE_DB;
     public static String DELETE_DB;
@@ -19,16 +24,30 @@ public class SQL {
 
     public SQL(Context context) {
         // Database
-        DB = context.getString(R.string.table_name);
+        DB_USER = context.getString(R.string.table_name);
         this.id = context.getString(R.string.table_column_id);
         this.cc = context.getString(R.string.table_column_cc);
+        // Hole
+        DB_HOLE = "huco";
+
         // SQLS
-        CREATE_DB = "CREATE TABLE IF NOT EXISTS " + DB + "(" + this.id + " STRING, " + this.cc + " STRING);";
-        DELETE_DB = "DELETE FROM " + DB;
+        CREATE_DB = "CREATE TABLE IF NOT EXISTS " + DB_USER + "(" + this.id + " STRING, " + this.cc + " STRING);";
+        CREATE_DB += "CREATE TABLE IF NOT EXISTS " + DB_HOLE + "(" + this.parametersHole + ");";
+
+        DELETE_DB = "DELETE FROM " + DB_USER + ";";
+        DELETE_DB += "DELETE FROM " + DB_HOLE + ";";
+
+        // Select
+        LOGIN = "select * from " + DB_USER + " where " + this.id + " = ? and " + this.cc + " = ? limit 1";
     }
 
     public String setInsertUser(String placa, String cc) {
-        INSERT_USER = "INSERT INTO " + DB + " (placa,cc) VALUES('" + placa + "', '" + cc + "');";
+        INSERT_USER = "INSERT INTO " + DB_USER + " (" + this.id + "," + this.cc + ") VALUES('" + placa + "', '" + cc + "');";
+        return INSERT_USER;
+    }
+
+    public String setInsertHole(Hole hole) {
+        INSERT_USER = "INSERT INTO " + DB_HOLE + " (idHueco, latitud, longitud, fecha, foto, alto, ancho, profundo, direccion) VALUES('" + hole.getCount() + "', '" + hole.getLatitude() +"', '" + hole.getLongitude() +"', date('now'), '" + hole.getPhoto().getPath() +"', '" + hole.getHeight() +"', '" + hole.getWidth() +"', '" + hole.getLength() +"', '" + hole.getAddress() + "');";
         return INSERT_USER;
     }
 }
